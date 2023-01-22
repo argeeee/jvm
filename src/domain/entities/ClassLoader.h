@@ -1,7 +1,7 @@
 #pragma once 
 
 #include <stdio.h>
-#include "core/core.h"
+#include "Core/Core.h"
 #include "Domain/Entities/JavaClass.h"
 #include "Domain/Entities/ConstantPool.h"
 #include "Domain/Entities/AttributeInfo.h"
@@ -140,7 +140,7 @@ void readFieldsSection(FILE *fp, JavaClass *javaClass) {
 	javaClass->fields = fields;
 }
 
-JavaClass *loadClass(char *path) {
+extern "C" JavaClass *loadClass(char *path) {
 	FILE *fp = fopen(path, "rb");
 	if (fp == NULL)
 		return NULL;

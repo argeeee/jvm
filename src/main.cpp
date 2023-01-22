@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "domain/domain.h"
+#include "Domain/Domain.h"
 
 int main(int argc, char **argv) {
 	if (argc != 2) {
