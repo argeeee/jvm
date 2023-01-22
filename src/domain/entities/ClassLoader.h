@@ -117,6 +117,16 @@ JavaClass *loadClass(char *path) {
 	readField(javaClass->major_version, fp);
 
 	readConstantPoolSection(fp, javaClass);
+
+	readField(javaClass->access_flags, fp);
+	readField(javaClass->this_class, fp);
+	readField(javaClass->super_class, fp);
+
+	readField(javaClass->interfaces_count, fp);
+	if (javaClass->interfaces_count > 0) {
+		javaClass->interfaces = (u16*)malloc(sizeof(u16) * javaClass->interfaces_count);
+		fread((javaClass->interfaces), sizeof(u16) * javaClass->interfaces_count, 1, fp);
+	}
 	
 	return fclose(fp), javaClass;
 }
