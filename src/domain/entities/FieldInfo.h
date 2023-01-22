@@ -5,7 +5,7 @@
 #include <string.h>
 
 #include "core/core.h"
-#include "domain/entities/AttributeInfo.h"
+#include "Domain/Entities/AttributeInfo.h"
 
 /*
 ACC_PUBLIC	0x0001	Declared public; may be accessed from outside its package.

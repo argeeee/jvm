@@ -2,10 +2,10 @@
 
 #include <stdio.h>
 #include "core/core.h"
-#include "domain/entities/JavaClass.h"
-#include "domain/entities/ConstantPool.h"
-#include "domain/entities/AttributeInfo.h"
-#include "domain/entities/FieldInfo.h"
+#include "Domain/Entities/JavaClass.h"
+#include "Domain/Entities/ConstantPool.h"
+#include "Domain/Entities/AttributeInfo.h"
+#include "Domain/Entities/FieldInfo.h"
 
 #define readField(prop, fp) \
 	fread(&(prop), sizeof(prop), 1, fp); \

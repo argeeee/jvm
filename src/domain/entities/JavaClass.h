@@ -1,8 +1,8 @@
 #pragma once
 
 #include "core/core.h"
-#include "domain/entities/ConstantPool.h"
-#include "domain/entities/FieldInfo.h"
+#include "Domain/Entities/ConstantPool.h"
+#include "Domain/Entities/FieldInfo.h"
 
 /*
 ClassFile {

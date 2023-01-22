@@ -1,5 +1,5 @@
 #pragma once
 
-#include "domain/entities/ConstantPool.h"
-#include "domain/entities/JavaClass.h"
-#include "domain/entities/ClassLoader.h"
+#include "Domain/Entities/ConstantPool.h"
+#include "Domain/Entities/JavaClass.h"
+#include "Domain/Entities/ClassLoader.h"

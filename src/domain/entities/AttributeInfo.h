@@ -4,8 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "core/core.h"
-#include "domain/entities/AttributeInfo.h"
+#include "Core/Core.h"
+#include "Domain/Entities/AttributeInfo.h"
 
 /*
 attribute_info {
