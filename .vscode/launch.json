@@ -9,7 +9,9 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/bin/jvm",
-			"args": [],
+			"args": [
+				"${workspaceFolder}/JavaProjects/Program.class"
+			],
 			"stopAtEntry": false,
 			"cwd": "${fileDirname}",
 			"environment": [],
