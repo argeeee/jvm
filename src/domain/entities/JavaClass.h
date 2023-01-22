@@ -2,6 +2,7 @@
 
 #include "core/core.h"
 #include "domain/entities/ConstantPool.h"
+#include "domain/entities/FieldInfo.h"
 
 /*
 ClassFile {
@@ -38,6 +39,9 @@ struct JavaClass {
 
 	u16 interfaces_count;
 	u16 *interfaces;
+
+	u16 fields_count;
+	FieldInfo** fields;
 };
 typedef struct JavaClass JavaClass;
 
@@ -51,6 +55,9 @@ void deleteJavaClass(JavaClass *javaClass) {
 		for (int i = 0; i < javaClass->constant_pool_count - 1; i++) {
 			deleteConstantPoolInfo(javaClass->constant_pool[i]);
 		}
+	}
+	if (javaClass->interfaces != NULL) {
+		free(javaClass->interfaces);
 	}
 	free(javaClass);
 }

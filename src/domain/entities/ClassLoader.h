@@ -4,6 +4,8 @@
 #include "core/core.h"
 #include "domain/entities/JavaClass.h"
 #include "domain/entities/ConstantPool.h"
+#include "domain/entities/AttributeInfo.h"
+#include "domain/entities/FieldInfo.h"
 
 #define readField(prop, fp) \
 	fread(&(prop), sizeof(prop), 1, fp); \
@@ -104,6 +106,40 @@ void readConstantPoolSection(FILE *fp, JavaClass *javaClass) {
 	javaClass->constant_pool = constant_pool;
 }
 
+void readAttributeSection(FILE *fp, AttributeInfo *attribute) {
+	readField(attribute->attribute_name_index, fp);
+	readField(attribute->attribute_length, fp);
+	attribute->info = (u8*) malloc(sizeof(u8) * attribute->attribute_length + 1);
+	fread((attribute->info), sizeof(u8) * attribute->attribute_length, 1, fp);
+	attribute->info[attribute->attribute_length] = 0;
+}
+
+void readFieldsSection(FILE *fp, JavaClass *javaClass) {
+	readField(javaClass->fields_count, fp);
+	FieldInfo **fields = (FieldInfo **)malloc(
+		sizeof(FieldInfo*) * (javaClass->fields_count)
+	);
+	for (int i = 0; i < javaClass->fields_count; i++) {
+		fields[i] = createFieldInfo();
+		FieldInfo* field = fields[i];
+		readField(field->access_flags, fp);
+		readField(field->name_index, fp);
+		readField(field->descriptor_index, fp);
+		readField(field->attributes_count, fp);
+		if (field->attributes_count > 0) {
+			AttributeInfo **attributes = (AttributeInfo **) malloc(
+				sizeof(AttributeInfo *) * field->attributes_count
+			);
+			for (int j = 0; j < field->attributes_count; j++) {
+				attributes[i] = createAttributeInfo();
+				readAttributeSection(fp, attributes[i]);
+			}
+			field->attributes = attributes;
+		}
+	}
+	javaClass->fields = fields;
+}
+
 JavaClass *loadClass(char *path) {
 	FILE *fp = fopen(path, "rb");
 	if (fp == NULL)
@@ -127,6 +163,8 @@ JavaClass *loadClass(char *path) {
 		javaClass->interfaces = (u16*)malloc(sizeof(u16) * javaClass->interfaces_count);
 		fread((javaClass->interfaces), sizeof(u16) * javaClass->interfaces_count, 1, fp);
 	}
+
+	readFieldsSection(fp, javaClass);
 	
 	return fclose(fp), javaClass;
 }

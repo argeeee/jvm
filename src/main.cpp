@@ -32,5 +32,25 @@ int main(int argc, char **argv) {
 		);
 		free(str);
 	}
+	printf("access_flags: %u\n", loadedClass->access_flags);
+	printf("this_class: %u\n", loadedClass->this_class);
+	printf("super_class: %u\n", loadedClass->super_class);
+	printf("interfaces_count: %u\n", loadedClass->interfaces_count);
+	printf("interfaces: [");
+	for (int i = 0; i < loadedClass->interfaces_count; i++) {
+		printf("%u, ", loadedClass->interfaces[i]);
+	}
+	printf("]\n");
+	printf("fields_count: %u\n", loadedClass->fields_count);
+	printf("fields:\n");
+	for (int i = 0; i < loadedClass->fields_count; i++) {
+		FieldInfo *field = loadedClass->fields[i];
+		char* str = FieldInfo_to_str(field);
+		printf("\t #%d: field: %s\n",
+			(i + 1),
+			str
+		);
+		free(str);
+	}
 	deleteJavaClass(loadedClass);
 }
