@@ -3,6 +3,7 @@
 #include "core/core.h"
 #include "Domain/Entities/ConstantPool.h"
 #include "Domain/Entities/FieldInfo.h"
+#include "Domain/Entities/MethodInfo.h"
 
 /*
 ClassFile {
@@ -42,6 +43,10 @@ struct JavaClass {
 
 	u16 fields_count;
 	FieldInfo** fields;
+
+	u16 methods_count;
+	MethodInfo **methods;
+
 };
 typedef struct JavaClass JavaClass;
 

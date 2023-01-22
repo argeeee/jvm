@@ -8,6 +8,29 @@
 #include "Domain/Entities/AttributeInfo.h"
 
 /*
+ConstantValue
+Code
+StackMapTable
+Exceptions
+InnerClasses
+EnclosingMethod
+Synthetic
+Signature
+SourceFile
+SourceDebugExtension
+LineNumberTable
+LocalVariableTable
+LocalVariableTypeTable
+Deprecated
+RuntimeVisibleAnnotations
+RuntimeInvisibleAnnotations
+RuntimeVisibleParameterAnnotations
+RuntimeInvisibleParameterAnnotations
+AnnotationDefault
+BootstrapMethods
+*/
+
+/*
 attribute_info {
 	u2 attribute_name_index;
 	u4 attribute_length;
@@ -17,6 +40,7 @@ attribute_info {
 struct AttributeInfo {
 	u16 attribute_name_index;
 	u32 attribute_length;
+	// TODO: to change and make it an union of all kind of atteributes
 	u8 *info;
 };
 typedef struct AttributeInfo AttributeInfo;
