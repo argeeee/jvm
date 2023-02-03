@@ -270,85 +270,85 @@ void deleteConstantPoolInfo(ConstantPoolInfo *constantPoolInfo) {
 
 char *Constant_Class_to_str(Constant_Class *cc) {
 	char *str = (char *)malloc(sizeof(char) * 128);
-	snprintf(str, 128, "Constant Class: name_index=%d", cc->name_index);
+	snprintf(str, 128, "Class: name_index=%d", cc->name_index);
 	return str;
 }
 
 char *Constant_Fieldref_to_str(Constant_Fieldref *cf) {
 	char *str = (char *)malloc(sizeof(char) * 128);
-	snprintf(str, 128, "Constant Fieldref: class_index=%d, name_and_type_index=%d", cf->class_index, cf->name_and_type_index);
+	snprintf(str, 128, "Fieldref: class_index=%d, name_and_type_index=%d", cf->class_index, cf->name_and_type_index);
 	return str;
 }
 
 char *Constant_Methodref_to_str(Constant_Methodref *cm) {
 	char *str = (char *)malloc(sizeof(char) * 128);
-	snprintf(str, 128, "Constant Methodref: class_index=%d, name_and_type_index=%d", cm->class_index, cm->name_and_type_index);
+	snprintf(str, 128, "Methodref: class_index=%d, name_and_type_index=%d", cm->class_index, cm->name_and_type_index);
 	return str;
 }
 
 char *Constant_InterfaceMethodref_to_str(Constant_InterfaceMethodref *cim) {
 	char *str = (char *)malloc(sizeof(char) * 128);
-	snprintf(str, 128, "Constant InterfaceMethodref: class_index=%d, name_and_type_index=%d", cim->class_index, cim->name_and_type_index);
+	snprintf(str, 128, "InterfaceMethodref: class_index=%d, name_and_type_index=%d", cim->class_index, cim->name_and_type_index);
 	return str;
 }
 
 char *Constant_String_to_str(Constant_String *cs) {
 	char *str = (char *)malloc(sizeof(char) * 128);
-	snprintf(str, 128, "Constant String: string_index=%d", cs->string_index);
+	snprintf(str, 128, "String: string_index=%d", cs->string_index);
 	return str;
 }
 
 char *Constant_Integer_to_str(Constant_Integer *ci) {
 	char *str = (char *)malloc(sizeof(char) * 128);
-	snprintf(str, 128, "Constant Integer: bytes=%d", ci->bytes);
+	snprintf(str, 128, "Integer: bytes=%d", ci->bytes);
 	return str;
 }
 
 char *Constant_Float_to_str(Constant_Float *cf) {
 	char *str = (char *)malloc(sizeof(char) * 128);
-	snprintf(str, 128, "Constant Float: bytes=%d", cf->bytes);
+	snprintf(str, 128, "Float: bytes=%d", cf->bytes);
 	return str;
 }
 
 char *Constant_Long_to_str(Constant_Long *cl) {
 	char *str = (char *)malloc(sizeof(char) * 128);
-	snprintf(str, 128, "Constant Long: high_bytes=%d, low_bytes=%d", cl->high_bytes, cl->low_bytes);
+	snprintf(str, 128, "Long: high_bytes=%d, low_bytes=%d", cl->high_bytes, cl->low_bytes);
 	return str;
 }
 
 char *Constant_Double_to_str(Constant_Double *cd) {
 	char *str = (char *)malloc(sizeof(char) * 128);
-	snprintf(str, 128, "Constant Double: high_bytes=%d, low_bytes=%d", cd->high_bytes, cd->low_bytes);
+	snprintf(str, 128, "Double: high_bytes=%d, low_bytes=%d", cd->high_bytes, cd->low_bytes);
 	return str;
 }
 
 char *Constant_NameAndType_to_str(Constant_NameAndType *cnt) {
 	char *str = (char *)malloc(sizeof(char) * 128);
-	snprintf(str, 128, "Constant NameAndType: name_index=%d, descriptor_index=%d", cnt->name_index, cnt->descriptor_index);
+	snprintf(str, 128, "NameAndType: name_index=%d, descriptor_index=%d", cnt->name_index, cnt->descriptor_index);
 	return str;
 }
 
 char *Constant_Utf8_to_str(Constant_Utf8 *cu) {
 	char *str = (char *)malloc(sizeof(char) * (cu->length + 128));
-	snprintf(str, cu->length + 128, "Constant Utf8: length=%d, bytes=%s", cu->length, cu->bytes);
+	snprintf(str, cu->length + 128, "Utf8: length=%d, bytes=%s", cu->length, cu->bytes);
 	return str;
 }
 
 char *Constant_MethodHandle_to_str(Constant_MethodHandle *cmh) {
 	char *str = (char *)malloc(sizeof(char) * 128);
-	snprintf(str, 128, "Constant MethodHandle: reference_kind=%d, reference_index=%d", cmh->reference_kind, cmh->reference_index);
+	snprintf(str, 128, "MethodHandle: reference_kind=%d, reference_index=%d", cmh->reference_kind, cmh->reference_index);
 	return str;
 }
 
 char *Constant_MethodType_to_str(Constant_MethodType *cmt) {
 	char *str = (char *)malloc(sizeof(char) * 128);
-	snprintf(str, 128, "Constant MethodType: descriptor_index=%d", cmt->descriptor_index);
+	snprintf(str, 128, "MethodType: descriptor_index=%d", cmt->descriptor_index);
 	return str;
 }
 
 char *Constant_InvokeDynamic_to_str(Constant_InvokeDynamic *cid) {
 	char *str = (char *)malloc(sizeof(char) * 128);
-	snprintf(str, 128, "Constant InvokeDynamic: bootstrap_method_attr_index=%d, name_and_type_index=%d", cid->bootstrap_method_attr_index, cid->name_and_type_index);
+	snprintf(str, 128, "InvokeDynamic: bootstrap_method_attr_index=%d, name_and_type_index=%d", cid->bootstrap_method_attr_index, cid->name_and_type_index);
 	return str;
 }
 

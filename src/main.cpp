@@ -11,7 +11,7 @@ int main(int argc, char **argv) {
 	}
 
 	char *className = argv[1];
-	JavaClass *loadedClass = loadClass(className);
+	JavaClass *loadedClass = LoadClass(className);
 	if (loadedClass == NULL) {
 		printf("error: cannot validate class filefile\n");
 		exit(2);
@@ -25,9 +25,9 @@ int main(int argc, char **argv) {
 	for (int i = 0; i < loadedClass->constant_pool_count - 1; i++) {
 		ConstantPoolInfo *cp_info = loadedClass->constant_pool[i];
 		char* str = ConstantPoolInfo_to_str(cp_info);
-		printf("\t #%d: cp_info(tag=%s) info: %s\n",
+		printf("   #%d = %s\n",
 			(i + 1),
-			ConstantPool_tag_to_str(cp_info->tag),
+			// ConstantPool_tag_to_str(cp_info->tag),
 			str
 		);
 		free(str);
