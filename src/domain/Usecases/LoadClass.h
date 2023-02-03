@@ -142,6 +142,32 @@ void readFieldsSection(FILE *fp, JavaClass *javaClass) {
 	javaClass->fields = fields;
 }
 
+void readMethodsSection(FILE *fp, JavaClass *javaClass) {
+	readField(javaClass->methods_count, fp);
+	MethodInfo **methods = (MethodInfo **)malloc(
+		sizeof(MethodInfo*) * (javaClass->methods_count)
+	);
+	for (int i = 0; i < javaClass->methods_count; i++) {
+		methods[i] = createMethodInfo();
+		MethodInfo* method = methods[i];
+		readField(method->access_flags, fp);
+		readField(method->name_index, fp);
+		readField(method->descriptor_index, fp);
+		readField(method->attributes_count, fp);
+		if (method->attributes_count > 0) {
+			AttributeInfo **attributes = (AttributeInfo **) malloc(
+				sizeof(AttributeInfo *) * method->attributes_count
+			);
+			for (int j = 0; j < method->attributes_count; j++) {
+				attributes[i] = createAttributeInfo();
+				readAttributeSection(fp, attributes[i]);
+			}
+			method->attributes = attributes;
+		}
+	}
+	javaClass->methods = methods;
+}
+
 extern "C" JavaClass *loadClass(char *path) {
 	FILE *fp = fopen(path, "rb");
 	if (fp == NULL)
@@ -167,6 +193,8 @@ extern "C" JavaClass *loadClass(char *path) {
 	}
 
 	readFieldsSection(fp, javaClass);
+
+	readMethodsSection(fp, javaClass);
 	
 	return fclose(fp), javaClass;
 }
