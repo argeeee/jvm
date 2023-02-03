@@ -111,6 +111,7 @@ void readConstantPoolSection(FILE *fp, JavaClass *javaClass) {
 void readAttributeSection(FILE *fp, AttributeInfo *attribute) {
 	readField(attribute->attribute_name_index, fp);
 	readField(attribute->attribute_length, fp);
+	// TODO: to read specific attribute with a switch statement
 	attribute->info = (u8*) malloc(sizeof(u8) * attribute->attribute_length + 1);
 	fread((attribute->info), sizeof(u8) * attribute->attribute_length, 1, fp);
 	attribute->info[attribute->attribute_length] = 0;

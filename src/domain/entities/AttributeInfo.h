@@ -7,6 +7,9 @@
 #include "Core/Core.h"
 #include "Domain/Entities/AttributeInfo.h"
 
+struct AttributeInfo;
+typedef struct AttributeInfo AttributeInfo;
+
 /*
 ConstantValue
 Code
@@ -350,7 +353,6 @@ struct AttributeInfo {
 	// TODO: to change and make it an union of all kind of atteributes
 	u8 *info;
 };
-typedef struct AttributeInfo AttributeInfo;
 
 AttributeInfo *createAttributeInfo() {
 	AttributeInfo *attributeInfo = (AttributeInfo*)malloc(sizeof(AttributeInfo));
