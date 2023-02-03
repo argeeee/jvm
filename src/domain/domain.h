@@ -4,3 +4,4 @@
 #include "Domain/Entities/JavaClass.h"
 
 #include "Domain/UseCases/LoadClass.h"
+#include "Domain/UseCases/DumpClass.h"
