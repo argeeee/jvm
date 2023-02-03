@@ -1,7 +1,5 @@
 #pragma once
 
-#include <optional>
-
 // TODO: to change
 template<typename T>
 class Result {
@@ -14,7 +12,10 @@ class Result {
   const char* Error() const { return error_; }
 
  private:
-  std::optional<T> value_;
-  const char* error_ = nullptr;
-  bool has_value_ = false;
+  union
+  {
+    T value_;
+    const char* error_;
+  };
+  bool has_value_;
 };

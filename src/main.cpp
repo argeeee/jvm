@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "Domain/Domain.h"
+#include "Container.h"
 
 int main(int argc, char **argv) {
 	if (argc != 2) {
@@ -11,7 +12,7 @@ int main(int argc, char **argv) {
 	}
 
 	char *className = argv[1];
-	JavaClass *loadedClass = LoadClass(className);
+	JavaClass *loadedClass = loadClass(className);
 	if (loadedClass == NULL) {
 		printf("error: cannot validate class filefile\n");
 		exit(2);

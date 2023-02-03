@@ -169,35 +169,48 @@ void readMethodsSection(FILE *fp, JavaClass *javaClass) {
 	javaClass->methods = methods;
 }
 
+
+#if USE_CXX == 1
+class LoadClass : public UseCase<JavaClass*, char*> {
+ public:
+	LoadClass() { }
+	virtual ~LoadClass() { }
+
+  virtual JavaClass* operator()(char*& path) {
+#else 
 extern "C" JavaClass *loadClass(char *path) {
-	FILE *fp = fopen(path, "rb");
-	if (fp == NULL)
-		return NULL;
+#endif
 
-	JavaClass *javaClass = createJavaClass();
+		FILE *fp = fopen(path, "rb");
+		if (fp == NULL)
+			return NULL;
 
-	readField(javaClass->magic, fp);
+		JavaClass *javaClass = createJavaClass();
 
-	readField(javaClass->minor_version, fp);
-	readField(javaClass->major_version, fp);
+		readField(javaClass->magic, fp);
 
-	readConstantPoolSection(fp, javaClass);
+		readField(javaClass->minor_version, fp);
+		readField(javaClass->major_version, fp);
 
-	readField(javaClass->access_flags, fp);
-	readField(javaClass->this_class, fp);
-	readField(javaClass->super_class, fp);
+		readConstantPoolSection(fp, javaClass);
 
-	readField(javaClass->interfaces_count, fp);
-	if (javaClass->interfaces_count > 0) {
-		javaClass->interfaces = (u16*)malloc(sizeof(u16) * javaClass->interfaces_count);
-		fread((javaClass->interfaces), sizeof(u16) * javaClass->interfaces_count, 1, fp);
+		readField(javaClass->access_flags, fp);
+		readField(javaClass->this_class, fp);
+		readField(javaClass->super_class, fp);
+
+		readField(javaClass->interfaces_count, fp);
+		if (javaClass->interfaces_count > 0) {
+			javaClass->interfaces = (u16*)malloc(sizeof(u16) * javaClass->interfaces_count);
+			fread((javaClass->interfaces), sizeof(u16) * javaClass->interfaces_count, 1, fp);
+		}
+
+		readFieldsSection(fp, javaClass);
+
+		readMethodsSection(fp, javaClass);
+		
+		return fclose(fp), javaClass;
 	}
 
-	readFieldsSection(fp, javaClass);
-
-	readMethodsSection(fp, javaClass);
-	
-	return fclose(fp), javaClass;
-}
-
-#define LoadClass(path) loadClass(path)
+#if USE_CXX == 1
+};
+#endif
