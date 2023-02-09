@@ -5,5 +5,5 @@
 
 namespace Container {
 	LoadClass loadClass;
-
+	DumpClass dumpClass;
 };

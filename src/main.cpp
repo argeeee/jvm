@@ -20,40 +20,9 @@ int main(int argc, char **argv) {
 		exit(2);
 	}
 
-	printf("magic: %x\n", loadedClass->magic);
-	printf("minor_version: %u\n", loadedClass->minor_version);
-	printf("major_version: %u\n", loadedClass->major_version);
-	printf("constant_pool_count: %u\n", loadedClass->constant_pool_count);
-	printf("constant_pool:\n");
-	for (int i = 0; i < loadedClass->constant_pool_count - 1; i++) {
-		ConstantPoolInfo *cp_info = loadedClass->constant_pool[i];
-		char* str = ConstantPoolInfo_to_str(cp_info);
-		printf("   #%d = %s\n",
-			(i + 1),
-			// ConstantPool_tag_to_str(cp_info->tag),
-			str
-		);
-		free(str);
-	}
-	printf("access_flags: %u\n", loadedClass->access_flags);
-	printf("this_class: %u\n", loadedClass->this_class);
-	printf("super_class: %u\n", loadedClass->super_class);
-	printf("interfaces_count: %u\n", loadedClass->interfaces_count);
-	printf("interfaces: [");
-	for (int i = 0; i < loadedClass->interfaces_count; i++) {
-		printf("%u, ", loadedClass->interfaces[i]);
-	}
-	printf("]\n");
-	printf("fields_count: %u\n", loadedClass->fields_count);
-	printf("fields:\n");
-	for (int i = 0; i < loadedClass->fields_count; i++) {
-		FieldInfo *field = loadedClass->fields[i];
-		char* str = FieldInfo_to_str(field);
-		printf("\t #%d: field: %s\n",
-			(i + 1),
-			str
-		);
-		free(str);
-	}
+	dumpClass({loadedClass, stdout});
+
 	deleteJavaClass(loadedClass);
+
+	return 0;
 }
