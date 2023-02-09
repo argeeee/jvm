@@ -581,10 +581,33 @@ LocalVariableTable_attribute {
 	} local_variable_table[local_variable_table_length];
 }
 */
+
+struct local_variable_table_row {
+	u16 start_pc;
+	u16 length;
+	u16 name_index;
+	u16 descriptor_index;
+	u16 index;
+};
+typedef struct local_variable_table_row local_variable_table_row;
+
 struct LocalVariableTable_attribute {
-	// TODO
+	u16 local_variable_table_length;
+	local_variable_table_row *local_variable_table;
 };
 typedef struct LocalVariableTable_attribute LocalVariableTable_attribute;
+
+LocalVariableTable_attribute *createLocalVariableTableAttribute() {
+	LocalVariableTable_attribute *localVariableTable_attribute = (LocalVariableTable_attribute*)malloc(sizeof(LocalVariableTable_attribute));
+	return localVariableTable_attribute;
+}
+
+void deleteLocalVariableTableAttribute(LocalVariableTable_attribute *localVariableTable_attribute) {
+	if (localVariableTable_attribute->local_variable_table != NULL) {
+		free(localVariableTable_attribute->local_variable_table);
+	}
+	free(localVariableTable_attribute);
+}
 
 /*
 LocalVariableTypeTable_attribute {
@@ -599,11 +622,32 @@ LocalVariableTypeTable_attribute {
 	} local_variable_type_table[local_variable_type_table_length];
 }
 */
+struct local_variable_type_table_row {
+	u16 start_pc;
+	u16 length;
+	u16 name_index;
+	u16 signature_index;
+	u16 index;
+};
+typedef struct local_variable_type_table_row local_variable_type_table_row;
+
 struct LocalVariableTypeTable_attribute {
-	// TODO
+	u16 local_variable_type_table_length;
+	local_variable_type_table_row *local_variable_type_table;
 };
 typedef struct LocalVariableTypeTable_attribute LocalVariableTypeTable_attribute;
 
+LocalVariableTypeTable_attribute *createLocalVariableTypeTableAttribute() {
+	LocalVariableTypeTable_attribute *localVariableTypeTable_attribute = (LocalVariableTypeTable_attribute*)malloc(sizeof(LocalVariableTypeTable_attribute));
+	return localVariableTypeTable_attribute;
+}
+
+void deleteLocalVariableTypeTableAttribute(LocalVariableTypeTable_attribute *localVariableTypeTable_attribute) {
+	if (localVariableTypeTable_attribute->local_variable_type_table != NULL) {
+		free(localVariableTypeTable_attribute->local_variable_type_table);
+	}
+	free(localVariableTypeTable_attribute);
+}
 /*
 Deprecated_attribute {
 	u2 attribute_name_index;
