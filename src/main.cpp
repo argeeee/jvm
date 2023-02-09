@@ -6,6 +6,8 @@
 #include "Container.h"
 
 int main(int argc, char **argv) {
+	using namespace Container;
+	
 	if (argc != 2) {
 		printf("usage: %s <pathToClassFile>\n", argv[0]);
 		exit(1);

@@ -3,9 +3,7 @@
 #include "Core/Core.h"
 #include "Domain/Domain.h"
 
-// namespace Container {
-
+namespace Container {
 	LoadClass loadClass;
 
-
-// };
+};
