@@ -82,8 +82,6 @@ struct ExceptionInfo {
 typedef struct ExceptionInfo ExceptionInfo;
 
 struct Code_attribute {
-	u16 attribute_name_index;
-	u32 attribute_length;
 	u16 max_stack;
 	u16 max_locals;
 	u32 code_length;
@@ -393,8 +391,6 @@ struct stack_map_frame {
 typedef struct stack_map_frame stack_map_frame;
 
 struct StackMapTable_attribute {
-	u16 attribute_name_index;
-	u32 attribute_length;
 	u16 number_of_entries;
 	stack_map_frame *entries;
 };
@@ -409,9 +405,22 @@ Exceptions_attribute {
 }
 */
 struct Exceptions_attribute {
-	// TODO
+	u16 number_of_exceptions;
+	u16 *exception_index_table;
 };
 typedef struct Exceptions_attribute Exceptions_attribute;
+
+Exceptions_attribute *createExceptionsAttribute() {
+	Exceptions_attribute *exceptions_attribute = (Exceptions_attribute*)malloc(sizeof(Exceptions_attribute));
+	return exceptions_attribute;
+}
+
+void deleteExceptionsAttribute(Exceptions_attribute *exceptions_attribute) {
+	if (exceptions_attribute->exception_index_table != NULL) {
+		free(exceptions_attribute->exception_index_table);
+	}
+	free(exceptions_attribute);
+}
 
 /*
 InnerClasses_attribute {
