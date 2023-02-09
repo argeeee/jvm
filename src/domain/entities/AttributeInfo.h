@@ -659,6 +659,75 @@ struct Deprecated_attribute {
 typedef struct Deprecated_attribute Deprecated_attribute;
 
 /*
+annotation {
+	u2 type_index;
+	u2 num_element_value_pairs;
+	{ u2 element_name_index;
+		element_value value;
+	} element_value_pairs[num_element_value_pairs];
+}
+
+element_value {
+	u1 tag;
+	union {
+		u2 const_value_index;
+
+		{ u2 type_name_index;
+			u2 const_name_index;
+		} enum_const_value;
+
+		u2 class_info_index;
+
+		annotation annotation_value;
+
+		{ u2 num_values;
+			element_value values[num_values];
+		} array_value;
+	} value;
+}
+
+tag Value	-> Element Type
+s	String
+e	enum constant
+c	class
+@	annotation type
+[	array
+*/
+struct annotation;
+
+struct enum_const_value_t {
+	u16 type_name_index;
+	u16 const_name_index;
+};
+
+struct array_value_t {
+	u16 num_values;
+	element_value *values; //[num_values];
+};
+
+struct element_value {
+	u8 tag;
+	union {
+		u16 const_value_index;
+		enum_const_value_t enum_const_value;
+		u16 class_info_index;
+		annotation annotation_value;
+		array_value_t array_value;
+	} value;
+};
+
+struct element_value_pair {
+	u16 element_name_index;
+	element_value value;
+};
+
+struct annotation {
+	u16 type_index;
+	u16 num_element_value_pairs;
+	element_value_pair *element_value_pairs;
+};
+
+/*
 RuntimeVisibleAnnotations_attribute {
 	u2         attribute_name_index;
 	u4         attribute_length;
@@ -667,7 +736,8 @@ RuntimeVisibleAnnotations_attribute {
 }
 */
 struct RuntimeVisibleAnnotations_attribute {
-	// TODO
+	u16 num_annotations;
+	annotation annotations; //[num_annotations];
 };
 typedef struct RuntimeVisibleAnnotations_attribute RuntimeVisibleAnnotations_attribute;
 
@@ -680,7 +750,8 @@ RuntimeInvisibleAnnotations_attribute {
 }
 */
 struct RuntimeInvisibleAnnotations_attribute {
-	// TODO
+	u16 num_annotations;
+	annotation annotations; //[num_annotations];
 };
 typedef struct RuntimeInvisibleAnnotations_attribute RuntimeInvisibleAnnotations_attribute;
 
@@ -770,6 +841,6 @@ void deleteAttributeInfo(AttributeInfo *attributeInfo) {
 
 char *AttributeInfo_to_str(AttributeInfo *ai) {
 	char *str;
-	asprintf(&str, "Attribute name_index=%d, attribute_length=%d, info=%s", ai->attribute_name_index, ai->attribute_length, ai->info);
+	asprintf(&str, "Attribute name_index=%d, attribute_length=%d, info=TODO!()", ai->attribute_name_index, ai->attribute_length);
 	return str;
 }
