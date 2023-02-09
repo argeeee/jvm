@@ -434,10 +434,32 @@ InnerClasses_attribute {
 	} classes[number_of_classes];
 }
 */
+
+struct InnerClass {
+	u16 inner_class_info_index;
+	u16 outer_class_info_index;
+	u16 inner_name_index;
+	u16 inner_class_access_flags;
+};
+typedef struct InnerClass InnerClass;
+
 struct InnerClasses_attribute {
-	// TODO
+	u16 number_of_classes;
+	InnerClass *classes;
 };
 typedef struct InnerClasses_attribute InnerClasses_attribute;
+
+InnerClasses_attribute *createInnerClassesAttribute() {
+	InnerClasses_attribute *innerClasses_attribute = (InnerClasses_attribute*)malloc(sizeof(InnerClasses_attribute));
+	return innerClasses_attribute;
+}
+
+void deleteInnerClassesAttribute(InnerClasses_attribute *innerClasses_attribute) {
+	if (innerClasses_attribute->classes != NULL) {
+		free(innerClasses_attribute->classes);
+	}
+	free(innerClasses_attribute);
+}
 
 /*
 EnclosingMethod_attribute {
@@ -448,7 +470,8 @@ EnclosingMethod_attribute {
 }
 */
 struct EnclosingMethod_attribute {
-	// TODO
+	u16 class_index;
+	u16 method_index;
 };
 typedef struct EnclosingMethod_attribute EnclosingMethod_attribute;
 
@@ -459,7 +482,6 @@ Synthetic_attribute {
 }
 */
 struct Synthetic_attribute {
-	// TODO
 };
 typedef struct Synthetic_attribute Synthetic_attribute;
 
@@ -471,7 +493,7 @@ Signature_attribute {
 }
 */
 struct Signature_attribute {
-	// TODO
+	u16 signature_index;
 };
 typedef struct Signature_attribute Signature_attribute;
 
@@ -483,7 +505,7 @@ SourceFile_attribute {
 }
 */
 struct SourceFile_attribute {
-	// TODO
+	u16 sourcefile_index;
 };
 typedef struct SourceFile_attribute SourceFile_attribute;
 
@@ -495,9 +517,21 @@ SourceDebugExtension_attribute {
 }
 */
 struct SourceDebugExtension_attribute {
-	// TODO
+	u8 *debug_extension;
 };
 typedef struct SourceDebugExtension_attribute SourceDebugExtension_attribute;
+
+SourceDebugExtension_attribute *createSourceDebugExtensionAttribute() {
+	SourceDebugExtension_attribute *sourceDebugExtension_attribute = (SourceDebugExtension_attribute*)malloc(sizeof(SourceDebugExtension_attribute));
+	return sourceDebugExtension_attribute;
+}
+
+void deleteSourceDebugExtensionAttribute(SourceDebugExtension_attribute *sourceDebugExtension_attribute) {
+	if (sourceDebugExtension_attribute->debug_extension != NULL) {
+		free(sourceDebugExtension_attribute->debug_extension);
+	}
+	free(sourceDebugExtension_attribute);
+}
 
 /*
 LineNumberTable_attribute {
@@ -509,10 +543,30 @@ LineNumberTable_attribute {
 	} line_number_table[line_number_table_length];
 }
 */
+
+struct line_number_table_row {
+	u16 start_pc;
+	u16 line_number;	
+};
+typedef struct line_number_table_row line_number_table_row;
+
 struct LineNumberTable_attribute {
-	// TODO
+	u16 line_number_table_length;
+	line_number_table_row *line_number_table;
 };
 typedef struct LineNumberTable_attribute LineNumberTable_attribute;
+
+LineNumberTable_attribute *createLineNumberTableAttribute() {
+	LineNumberTable_attribute *lineNumberTable_attribute = (LineNumberTable_attribute*)malloc(sizeof(LineNumberTable_attribute));
+	return lineNumberTable_attribute;
+}
+
+void deleteLineNumberTableAttribute(LineNumberTable_attribute *lineNumberTable_attribute) {
+	if (lineNumberTable_attribute->line_number_table != NULL) {
+		free(lineNumberTable_attribute->line_number_table);
+	}
+	free(lineNumberTable_attribute);
+}
 
 /*
 LocalVariableTable_attribute {
