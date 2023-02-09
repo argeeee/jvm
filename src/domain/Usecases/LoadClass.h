@@ -146,7 +146,7 @@ class LoadClass : public UseCase<JavaClass*, char*> {
 		javaClass->constant_pool = constant_pool;
 	}
 
-	void readAttributeSection(FILE *fp, AttributeInfo *attribute) {
+	void readAttributesSection(FILE *fp, AttributeInfo *attribute) {
 		readField(attribute->attribute_name_index, fp);
 		readField(attribute->attribute_length, fp);
 		// TODO: to read specific attribute with a switch statement
@@ -173,7 +173,7 @@ class LoadClass : public UseCase<JavaClass*, char*> {
 				);
 				for (int j = 0; j < field->attributes_count; j++) {
 					attributes[i] = createAttributeInfo();
-					readAttributeSection(fp, attributes[i]);
+					readAttributesSection(fp, attributes[i]);
 				}
 				field->attributes = attributes;
 			}
@@ -199,7 +199,7 @@ class LoadClass : public UseCase<JavaClass*, char*> {
 				);
 				for (int j = 0; j < method->attributes_count; j++) {
 					attributes[i] = createAttributeInfo();
-					readAttributeSection(fp, attributes[i]);
+					readAttributesSection(fp, attributes[i]);
 				}
 				method->attributes = attributes;
 			}
