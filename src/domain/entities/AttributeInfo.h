@@ -694,6 +694,7 @@ c	class
 [	array
 */
 struct annotation;
+struct element_value;
 
 struct enum_const_value_t {
 	u16 type_name_index;
@@ -737,7 +738,7 @@ RuntimeVisibleAnnotations_attribute {
 */
 struct RuntimeVisibleAnnotations_attribute {
 	u16 num_annotations;
-	annotation annotations; //[num_annotations];
+	annotation *annotations; //[num_annotations];
 };
 typedef struct RuntimeVisibleAnnotations_attribute RuntimeVisibleAnnotations_attribute;
 
@@ -751,9 +752,14 @@ RuntimeInvisibleAnnotations_attribute {
 */
 struct RuntimeInvisibleAnnotations_attribute {
 	u16 num_annotations;
-	annotation annotations; //[num_annotations];
+	annotation *annotations; //[num_annotations];
 };
 typedef struct RuntimeInvisibleAnnotations_attribute RuntimeInvisibleAnnotations_attribute;
+
+struct parameter_annotation {
+	u16 num_annotations;
+	annotation *annotations; //[num_annotations];
+};
 
 /*
 RuntimeVisibleParameterAnnotations_attribute {
@@ -766,7 +772,8 @@ RuntimeVisibleParameterAnnotations_attribute {
 }
 */
 struct RuntimeVisibleParameterAnnotations_attribute {
-	// TODO
+	u8 num_parameters;
+	parameter_annotation *parameter_annotations; //[num_parameters];
 };
 typedef struct RuntimeVisibleParameterAnnotations_attribute RuntimeVisibleParameterAnnotations_attribute;
 
@@ -781,7 +788,8 @@ RuntimeInvisibleParameterAnnotations_attribute {
 }
 */
 struct RuntimeInvisibleParameterAnnotations_attribute {
-	// TODO
+	u8 num_parameters;
+	parameter_annotation *parameter_annotations; //[num_parameters];
 };
 typedef struct RuntimeInvisibleParameterAnnotations_attribute RuntimeInvisibleParameterAnnotations_attribute;
 
@@ -793,9 +801,15 @@ AnnotationDefault_attribute {
 }
 */
 struct AnnotationDefault_attribute {
-	// TODO
+	element_value default_value;
 };
 typedef struct AnnotationDefault_attribute AnnotationDefault_attribute;
+
+struct bootstrap_method {
+	u16 bootstrap_method_ref;
+	u16 num_bootstrap_arguments;
+	u16 *bootstrap_arguments; //[num_bootstrap_arguments];
+};
 
 /*
 BootstrapMethods_attribute {
@@ -809,7 +823,8 @@ BootstrapMethods_attribute {
 }
 */
 struct BootstrapMethods_attribute {
-	// TODO
+	u16 num_bootstrap_methods;
+	bootstrap_method *bootstrap_methods;
 };
 typedef struct BootstrapMethods_attribute BootstrapMethods_attribute;
 
