@@ -712,7 +712,7 @@ struct element_value {
 		u16 const_value_index;
 		enum_const_value_t enum_const_value;
 		u16 class_info_index;
-		annotation annotation_value;
+		annotation *annotation_value;
 		array_value_t array_value;
 	} value;
 };
@@ -838,8 +838,32 @@ attribute_info {
 struct AttributeInfo {
 	u16 attribute_name_index;
 	u32 attribute_length;
-	// TODO: to change and make it an union of all kind of atteributes
-	u8 *info;
+	union {
+		// Old usage
+		u8 *info;
+		// New usage
+		ConstantValue_attribute *constantValue;
+		Code_attribute *code;
+		StackMapTable_attribute *stackMapTable;
+		Exceptions_attribute *exceptions;
+		InnerClasses_attribute *innerClasses;
+		EnclosingMethod_attribute *enclosingMethod;
+		Synthetic_attribute *synthetic;
+		Signature_attribute *signature;
+		SourceFile_attribute *sourceFile;
+		SourceDebugExtension_attribute *sourceDebugExtension;
+		LineNumberTable_attribute *sineNumberTable;
+		LocalVariableTable_attribute *localVariableTable;
+		LocalVariableTypeTable_attribute *localVariableTypeTable;
+		Deprecated_attribute *deprecated;
+		RuntimeVisibleAnnotations_attribute *runtimeVisibleAnnotations;
+		RuntimeInvisibleAnnotations_attribute *runtimeInvisibleAnnotations;
+		RuntimeVisibleParameterAnnotations_attribute *runtimeVisibleParameterAnnotations;
+		RuntimeInvisibleParameterAnnotations_attribute *runtimeInvisibleParameterAnnotations;
+		AnnotationDefault_attribute *annotationDefault;
+		BootstrapMethods_attribute *bootstrapMethods;
+	};
+	
 };
 
 AttributeInfo *createAttributeInfo() {
