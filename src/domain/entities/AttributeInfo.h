@@ -234,8 +234,169 @@ Uninitialized_variable_info {
 }
 
 */
+
+enum verification_type_info_tag {
+	ITEM_Top = 0,
+	ITEM_Integer = 1,
+	ITEM_Float = 2,
+	ITEM_Long = 4,
+	ITEM_Double = 3,
+	ITEM_Null = 5,
+	ITEM_UninitializedThis = 6,
+	ITEM_Object = 7,
+	ITEM_Uninitialized = 8 ,
+};
+typedef enum verification_type_info_tag verification_type_info_tag;
+
+struct Top_variable_info {
+};
+
+struct Integer_variable_info {
+};
+
+struct Float_variable_info {
+};
+
+struct Long_variable_info {
+};
+
+struct Double_variable_info {
+};
+
+struct Null_variable_info {
+};
+
+struct UninitializedThis_variable_info {
+};
+
+struct Object_variable_info {
+	u16 cpool_index;
+};
+
+struct Uninitialized_variable_info {
+	u16 offset;
+};
+
+struct verification_type_info {
+	u8 tag;
+	union {
+		Top_variable_info top_variable_info;
+		Integer_variable_info integer_variable_info;
+		Float_variable_info float_variable_info;
+		Long_variable_info long_variable_info;
+		Double_variable_info double_variable_info;
+		Null_variable_info null_variable_info;
+		UninitializedThis_variable_info uninitializedThis_variable_info;
+		Object_variable_info object_variable_info;
+		Uninitialized_variable_info uninitialized_variable_info;
+	};
+	
+};
+typedef struct verification_type_info verification_type_info;
+
+enum frame_type_enum {
+	SAME, // 0-63
+	SAME_LOCALS_1_STACK_ITEM, // 64-127
+	SAME_LOCALS_1_STACK_ITEM_EXTENDED, // 247 
+	CHOP, // 248-250
+	SAME_FRAME_EXTENDED, // 251 
+	APPEND, // 252-254
+	FULL_FRAME, // 255 
+};
+typedef enum frame_type_enum frame_type_enum;
+
+#define in_range(v, min, max) \
+	(v) >= (min) && (v) <= (max)
+
+frame_type_enum frame_type_from_byte(byte ft) {
+	if (in_range(ft, 0, 63)) {
+		return SAME;
+	}
+	else if (in_range(ft, 64, 127)) {
+		return SAME_LOCALS_1_STACK_ITEM;
+	}
+	else if (ft == 247) {
+		return SAME_LOCALS_1_STACK_ITEM_EXTENDED;
+	}
+	else if (in_range(ft, 248, 250)) {
+		return CHOP;
+	}
+	else if (ft == 251) {
+		return SAME_FRAME_EXTENDED;
+	}
+	else if (in_range(ft, 252, 254)) {
+		return APPEND;
+	}
+	else if (ft == 255) {
+		return FULL_FRAME;
+	}
+	else {
+		// TODO: to manage errors
+		exit(-1);
+	}
+}
+
+#undef in_range
+
+struct same_frame {
+};
+typedef struct same_frame same_frame;
+
+struct same_locals_1_stack_item_frame {
+	verification_type_info stack[1];
+};
+typedef struct same_locals_1_stack_item_frame same_locals_1_stack_item_frame;
+
+struct same_locals_1_stack_item_frame_extended {
+	u16 offset_delta;
+	verification_type_info stack[1];
+};
+typedef struct same_locals_1_stack_item_frame_extended same_locals_1_stack_item_frame_extended;
+
+struct chop_frame {
+	u16 offset_delta;
+};
+typedef struct chop_frame chop_frame;
+
+struct same_frame_extended {
+	u16 offset_delta;
+};
+typedef struct same_frame_extended same_frame_extended;
+
+struct append_frame {
+	u16 offset_delta;
+	verification_type_info *locals; //[frame_type - 251];
+};
+typedef struct append_frame append_frame;
+
+struct full_frame {
+	u16 offset_delta;
+	u16 number_of_locals;
+	verification_type_info *locals;
+	u16 number_of_stack_items;
+	verification_type_info *stack;
+};
+typedef struct full_frame full_frame;
+
+struct stack_map_frame {
+	u8 frame_type;
+	union {
+		same_frame same_frame_v;
+		same_locals_1_stack_item_frame same_locals_1_stack_item_frame_v;
+		same_locals_1_stack_item_frame_extended same_locals_1_stack_item_frame_extended_v;
+		chop_frame chop_frame_v;
+		same_frame_extended same_frame_extended_v;
+		append_frame append_frame_v;
+		full_frame full_frame_v;
+	};
+};
+typedef struct stack_map_frame stack_map_frame;
+
 struct StackMapTable_attribute {
-	// TODO
+	u16 attribute_name_index;
+	u32 attribute_length;
+	u16 number_of_entries;
+	stack_map_frame *entries;
 };
 typedef struct StackMapTable_attribute StackMapTable_attribute;
 
