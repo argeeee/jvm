@@ -5,10 +5,7 @@
 
 // namespace Container {
 
-#if USE_CXX == 1
-
 	LoadClass loadClass;
 
-#endif
 
 // };
