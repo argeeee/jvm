@@ -11,26 +11,27 @@ struct AttributeInfo;
 typedef struct AttributeInfo AttributeInfo;
 
 /*
-ConstantValue
-Code
-StackMapTable
-Exceptions
-InnerClasses
-EnclosingMethod
-Synthetic
-Signature
-SourceFile
-SourceDebugExtension
-LineNumberTable
-LocalVariableTable
-LocalVariableTypeTable
-Deprecated
-RuntimeVisibleAnnotations
-RuntimeInvisibleAnnotations
-RuntimeVisibleParameterAnnotations
-RuntimeInvisibleParameterAnnotations
-AnnotationDefault
-BootstrapMethods
+Attribute types:
+ - ConstantValue
+ - Code
+ - StackMapTable
+ - Exceptions
+ - InnerClasses
+ - EnclosingMethod
+ - Synthetic
+ - Signature
+ - SourceFile
+ - SourceDebugExtension
+ - LineNumberTable
+ - LocalVariableTable
+ - LocalVariableTypeTable
+ - Deprecated
+ - RuntimeVisibleAnnotations
+ - RuntimeInvisibleAnnotations
+ - RuntimeVisibleParameterAnnotations
+ - RuntimeInvisibleParameterAnnotations
+ - AnnotationDefault
+ - BootstrapMethods
 */
 
 /*
@@ -41,11 +42,12 @@ ConstantValue_attribute {
 }
 */
 /*
-long	CONSTANT_Long
-float	CONSTANT_Float
-double	CONSTANT_Double
-int, short, char, byte, boolean	CONSTANT_Integer
-String	CONSTANT_String
+Constant bindings: 
+ - long	CONSTANT_Long
+ - float	CONSTANT_Float
+ - double	CONSTANT_Double
+ - int, short, char, byte, boolean	CONSTANT_Integer
+ - String	CONSTANT_String
 */
 struct ConstantValue_attribute {
 	u16 constantvalue_index;
@@ -92,6 +94,28 @@ struct Code_attribute {
 	AttributeInfo **attributes;
 };
 typedef struct ConstantValue_attribute ConstantValue_attribute;
+
+Code_attribute *createCodeAttribute() {
+	Code_attribute *code_attribute = (Code_attribute*)malloc(sizeof(Code_attribute));
+	return code_attribute;
+}
+
+void deleteCodeAttribute(Code_attribute *code_attribute) {
+	if (code_attribute->code != NULL) {
+		free(code_attribute->code);
+	}
+	if (code_attribute->exception_table != NULL) {
+		for (int i = 0; i < code_attribute->exception_table_length; i++) {
+			free(code_attribute->exception_table[i]);
+		}
+	}
+	if (code_attribute->attributes != NULL) {
+		for (int i = 0; i < code_attribute->attributes_count; i++) {
+			free(code_attribute->attributes[i]);
+		}
+	}
+	free(code_attribute);
+}
 
 /*
 StackMapTable_attribute {
