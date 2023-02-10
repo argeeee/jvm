@@ -20,7 +20,10 @@ int main(int argc, char **argv) {
 		exit(2);
 	}
 
-	dumpClass({loadedClass, stdout});
+	dumpClass({
+		.javaClass = loadedClass, 
+		.fp = stdout
+	});
 
 	deleteJavaClass(loadedClass);
 
