@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Core/Core.h"
-#include "Domain/Domain.h"
+#include "Core/Core.hpp"
+#include "Domain/Domain.hpp"
 
 namespace Container {
 	LoadClass loadClass;

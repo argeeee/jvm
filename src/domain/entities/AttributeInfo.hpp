@@ -4,8 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "Core/Core.h"
-#include "Domain/Entities/AttributeInfo.h"
+#include "Core/Core.hpp"
+#include "Domain/Entities/AttributeInfo.hpp"
 
 struct AttributeInfo;
 typedef struct AttributeInfo AttributeInfo;

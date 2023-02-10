@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "Core/Core.h"
+#include "Core/Core.hpp"
 
 #define CONSTANT_Class               7
 #define CONSTANT_Fieldref            9

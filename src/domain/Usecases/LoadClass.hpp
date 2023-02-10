@@ -3,11 +3,11 @@
 #pragma once 
 
 #include <stdio.h>
-#include "Core/Core.h"
-#include "Domain/Entities/JavaClass.h"
-#include "Domain/Entities/ConstantPool.h"
-#include "Domain/Entities/AttributeInfo.h"
-#include "Domain/Entities/FieldInfo.h"
+#include "Core/Core.hpp"
+#include "Domain/Entities/JavaClass.hpp"
+#include "Domain/Entities/ConstantPool.hpp"
+#include "Domain/Entities/AttributeInfo.hpp"
+#include "Domain/Entities/FieldInfo.hpp"
 
 #define readField(prop, fp) \
 	fread(&(prop), sizeof(prop), 1, fp); \

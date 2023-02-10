@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Core/Core.h"
-#include "Domain/Entities/ConstantPool.h"
-#include "Domain/Entities/FieldInfo.h"
-#include "Domain/Entities/MethodInfo.h"
+#include "Core/Core.hpp"
+#include "Domain/Entities/ConstantPool.hpp"
+#include "Domain/Entities/FieldInfo.hpp"
+#include "Domain/Entities/MethodInfo.hpp"
 
 /*
 ClassFile {

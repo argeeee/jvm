@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "Domain/Domain.h"
-#include "Container.h"
+#include "Domain/Domain.hpp"
+#include "Container.hpp"
 
 int main(int argc, char **argv) {
 	using namespace Container;
