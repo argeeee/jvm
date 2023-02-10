@@ -49,6 +49,8 @@ class LoadClass : public UseCase<JavaClass*, char*> {
 		readFieldsSection(fp, javaClass);
 
 		readMethodsSection(fp, javaClass);
+
+		readAttributesSection(fp, javaClass);
 		
 		return fclose(fp), javaClass;
 	}
@@ -146,7 +148,7 @@ class LoadClass : public UseCase<JavaClass*, char*> {
 		javaClass->constant_pool = constant_pool;
 	}
 
-	void readAttributesSection(FILE *fp, AttributeInfo *attribute) {
+	void readAttribute(FILE *fp, AttributeInfo *attribute) {
 		readField(attribute->attribute_name_index, fp);
 		readField(attribute->attribute_length, fp);
 		// TODO: to read specific attribute with a switch statement
@@ -155,14 +157,33 @@ class LoadClass : public UseCase<JavaClass*, char*> {
 		attribute->info[attribute->attribute_length] = 0;
 	}
 
+	// TODO: to refactor and remove duplicate code
+	void readAttributesSection(FILE *fp, JavaClass *javaClass) {
+		readField(javaClass->attributes_count, fp);
+		if (javaClass->attributes_count > 0) {
+			AttributeInfo **attributes = (AttributeInfo **) malloc(
+				sizeof(AttributeInfo *) * javaClass->attributes_count
+			);
+			
+			for (int i = 0; i < javaClass->attributes_count; i++) {
+				attributes[i] = createAttributeInfo();
+				readAttribute(fp, attributes[i]);
+			}
+
+			javaClass->attributes = attributes;
+		}
+	}
+
 	void readFieldsSection(FILE *fp, JavaClass *javaClass) {
 		readField(javaClass->fields_count, fp);
 		FieldInfo **fields = (FieldInfo **)malloc(
 			sizeof(FieldInfo*) * (javaClass->fields_count)
 		);
+
 		for (int i = 0; i < javaClass->fields_count; i++) {
 			fields[i] = createFieldInfo();
 			FieldInfo* field = fields[i];
+
 			readField(field->access_flags, fp);
 			readField(field->name_index, fp);
 			readField(field->descriptor_index, fp);
@@ -172,8 +193,8 @@ class LoadClass : public UseCase<JavaClass*, char*> {
 					sizeof(AttributeInfo *) * field->attributes_count
 				);
 				for (int j = 0; j < field->attributes_count; j++) {
-					attributes[i] = createAttributeInfo();
-					readAttributesSection(fp, attributes[i]);
+					attributes[j] = createAttributeInfo();
+					readAttribute(fp, attributes[j]);
 				}
 				field->attributes = attributes;
 			}
@@ -186,24 +207,30 @@ class LoadClass : public UseCase<JavaClass*, char*> {
 		MethodInfo **methods = (MethodInfo **)malloc(
 			sizeof(MethodInfo*) * (javaClass->methods_count)
 		);
+
 		for (int i = 0; i < javaClass->methods_count; i++) {
 			methods[i] = createMethodInfo();
 			MethodInfo* method = methods[i];
+
 			readField(method->access_flags, fp);
 			readField(method->name_index, fp);
 			readField(method->descriptor_index, fp);
 			readField(method->attributes_count, fp);
+		
 			if (method->attributes_count > 0) {
 				AttributeInfo **attributes = (AttributeInfo **) malloc(
 					sizeof(AttributeInfo *) * method->attributes_count
 				);
+		
 				for (int j = 0; j < method->attributes_count; j++) {
-					attributes[i] = createAttributeInfo();
-					readAttributesSection(fp, attributes[i]);
+					attributes[j] = createAttributeInfo();
+					readAttribute(fp, attributes[j]);
 				}
+		
 				method->attributes = attributes;
 			}
 		}
+		
 		javaClass->methods = methods;
 	}
 

@@ -47,6 +47,8 @@ struct JavaClass {
 	u16 methods_count;
 	MethodInfo **methods;
 
+	u16 attributes_count;
+	AttributeInfo **attributes;
 };
 typedef struct JavaClass JavaClass;
 
