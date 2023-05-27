@@ -7,6 +7,6 @@ class UseCase {
   virtual ~UseCase() { }
 
   virtual ReturnType operator()(const ParamsType& param) {
-    // TODO: to fix warning (non-void function does not return a value [-Wreturn-type]) 
+    return (*(ReturnType*)((int*)0));
   }
 };
