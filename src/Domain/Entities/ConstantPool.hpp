@@ -239,7 +239,7 @@ struct ConstantPoolInfo {
 	
 };
 
-ConstantPoolInfo *createConstantPoolInfo() {
+ConstantPoolInfo *CreateConstantPoolInfo() {
 	ConstantPoolInfo *constantPoolInfo = (ConstantPoolInfo*)malloc(sizeof(ConstantPoolInfo));
 	return constantPoolInfo;
 }

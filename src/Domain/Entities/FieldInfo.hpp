@@ -45,7 +45,7 @@ struct FieldInfo {
 	AttributeInfo **attributes;
 };
 
-FieldInfo *createFieldInfo() {
+FieldInfo *CreateFieldInfo() {
 	FieldInfo *fieldInfo = (FieldInfo*)malloc(sizeof(FieldInfo));
 	return fieldInfo;
 }

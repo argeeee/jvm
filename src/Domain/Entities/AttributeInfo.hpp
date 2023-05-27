@@ -832,7 +832,7 @@ struct AttributeInfo {
 	
 };
 
-AttributeInfo *createAttributeInfo() {
+AttributeInfo *CreateAttributeInfo() {
 	AttributeInfo *attributeInfo = (AttributeInfo*)malloc(sizeof(AttributeInfo));
 	return attributeInfo;
 }

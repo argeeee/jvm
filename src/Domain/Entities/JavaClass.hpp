@@ -51,7 +51,7 @@ struct JavaClass {
 	AttributeInfo **attributes;
 };
 
-JavaClass *createJavaClass() {
+JavaClass *CreateJavaClass() {
 	JavaClass *javaClass = (JavaClass*)malloc(sizeof(JavaClass));
 	return javaClass;
 }

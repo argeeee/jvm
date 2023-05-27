@@ -35,7 +35,7 @@ struct MethodInfo {
 	AttributeInfo **attributes;
 };
 
-MethodInfo *createMethodInfo() {
+MethodInfo *CreateMethodInfo() {
 	MethodInfo *methodInfo = (MethodInfo*)malloc(sizeof(MethodInfo));
 	return methodInfo;
 }
