@@ -44,7 +44,6 @@ struct FieldInfo {
 	u16 attributes_count;
 	AttributeInfo **attributes;
 };
-typedef struct FieldInfo FieldInfo;
 
 FieldInfo *createFieldInfo() {
 	FieldInfo *fieldInfo = (FieldInfo*)malloc(sizeof(FieldInfo));

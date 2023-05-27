@@ -52,7 +52,6 @@ Constant bindings:
 struct ConstantValue_attribute {
 	u16 constantvalue_index;
 };
-typedef struct ConstantValue_attribute ConstantValue_attribute;
 
 /*
 Code_attribute {
@@ -79,7 +78,6 @@ struct ExceptionInfo {
 	u16 handler_pc;
 	u16 catch_type;
 };
-typedef struct ExceptionInfo ExceptionInfo;
 
 struct Code_attribute {
 	u16 max_stack;
@@ -91,7 +89,6 @@ struct Code_attribute {
 	u16 attributes_count;
 	AttributeInfo **attributes;
 };
-typedef struct ConstantValue_attribute ConstantValue_attribute;
 
 Code_attribute *createCodeAttribute() {
 	Code_attribute *code_attribute = (Code_attribute*)malloc(sizeof(Code_attribute));
@@ -244,7 +241,6 @@ enum verification_type_info_tag {
 	ITEM_Object = 7,
 	ITEM_Uninitialized = 8 ,
 };
-typedef enum verification_type_info_tag verification_type_info_tag;
 
 struct Top_variable_info {
 };
@@ -290,7 +286,6 @@ struct verification_type_info {
 	};
 	
 };
-typedef struct verification_type_info verification_type_info;
 
 enum frame_type_enum {
 	SAME, // 0-63
@@ -338,34 +333,28 @@ frame_type_enum frame_type_from_byte(byte ft) {
 
 struct same_frame {
 };
-typedef struct same_frame same_frame;
 
 struct same_locals_1_stack_item_frame {
 	verification_type_info stack[1];
 };
-typedef struct same_locals_1_stack_item_frame same_locals_1_stack_item_frame;
 
 struct same_locals_1_stack_item_frame_extended {
 	u16 offset_delta;
 	verification_type_info stack[1];
 };
-typedef struct same_locals_1_stack_item_frame_extended same_locals_1_stack_item_frame_extended;
 
 struct chop_frame {
 	u16 offset_delta;
 };
-typedef struct chop_frame chop_frame;
 
 struct same_frame_extended {
 	u16 offset_delta;
 };
-typedef struct same_frame_extended same_frame_extended;
 
 struct append_frame {
 	u16 offset_delta;
 	verification_type_info *locals; //[frame_type - 251];
 };
-typedef struct append_frame append_frame;
 
 struct full_frame {
 	u16 offset_delta;
@@ -374,7 +363,6 @@ struct full_frame {
 	u16 number_of_stack_items;
 	verification_type_info *stack;
 };
-typedef struct full_frame full_frame;
 
 struct stack_map_frame {
 	u8 frame_type;
@@ -388,13 +376,11 @@ struct stack_map_frame {
 		full_frame full_frame_v;
 	};
 };
-typedef struct stack_map_frame stack_map_frame;
 
 struct StackMapTable_attribute {
 	u16 number_of_entries;
 	stack_map_frame *entries;
 };
-typedef struct StackMapTable_attribute StackMapTable_attribute;
 
 /*
 Exceptions_attribute {
@@ -408,7 +394,6 @@ struct Exceptions_attribute {
 	u16 number_of_exceptions;
 	u16 *exception_index_table;
 };
-typedef struct Exceptions_attribute Exceptions_attribute;
 
 Exceptions_attribute *createExceptionsAttribute() {
 	Exceptions_attribute *exceptions_attribute = (Exceptions_attribute*)malloc(sizeof(Exceptions_attribute));
@@ -441,13 +426,11 @@ struct InnerClass {
 	u16 inner_name_index;
 	u16 inner_class_access_flags;
 };
-typedef struct InnerClass InnerClass;
 
 struct InnerClasses_attribute {
 	u16 number_of_classes;
 	InnerClass *classes;
 };
-typedef struct InnerClasses_attribute InnerClasses_attribute;
 
 InnerClasses_attribute *createInnerClassesAttribute() {
 	InnerClasses_attribute *innerClasses_attribute = (InnerClasses_attribute*)malloc(sizeof(InnerClasses_attribute));
@@ -473,7 +456,6 @@ struct EnclosingMethod_attribute {
 	u16 class_index;
 	u16 method_index;
 };
-typedef struct EnclosingMethod_attribute EnclosingMethod_attribute;
 
 /*
 Synthetic_attribute {
@@ -495,7 +477,6 @@ Signature_attribute {
 struct Signature_attribute {
 	u16 signature_index;
 };
-typedef struct Signature_attribute Signature_attribute;
 
 /*
 SourceFile_attribute {
@@ -507,7 +488,6 @@ SourceFile_attribute {
 struct SourceFile_attribute {
 	u16 sourcefile_index;
 };
-typedef struct SourceFile_attribute SourceFile_attribute;
 
 /*
 SourceDebugExtension_attribute {
@@ -519,7 +499,6 @@ SourceDebugExtension_attribute {
 struct SourceDebugExtension_attribute {
 	u8 *debug_extension;
 };
-typedef struct SourceDebugExtension_attribute SourceDebugExtension_attribute;
 
 SourceDebugExtension_attribute *createSourceDebugExtensionAttribute() {
 	SourceDebugExtension_attribute *sourceDebugExtension_attribute = (SourceDebugExtension_attribute*)malloc(sizeof(SourceDebugExtension_attribute));
@@ -548,13 +527,11 @@ struct line_number_table_row {
 	u16 start_pc;
 	u16 line_number;	
 };
-typedef struct line_number_table_row line_number_table_row;
 
 struct LineNumberTable_attribute {
 	u16 line_number_table_length;
 	line_number_table_row *line_number_table;
 };
-typedef struct LineNumberTable_attribute LineNumberTable_attribute;
 
 LineNumberTable_attribute *createLineNumberTableAttribute() {
 	LineNumberTable_attribute *lineNumberTable_attribute = (LineNumberTable_attribute*)malloc(sizeof(LineNumberTable_attribute));
@@ -589,13 +566,11 @@ struct local_variable_table_row {
 	u16 descriptor_index;
 	u16 index;
 };
-typedef struct local_variable_table_row local_variable_table_row;
 
 struct LocalVariableTable_attribute {
 	u16 local_variable_table_length;
 	local_variable_table_row *local_variable_table;
 };
-typedef struct LocalVariableTable_attribute LocalVariableTable_attribute;
 
 LocalVariableTable_attribute *createLocalVariableTableAttribute() {
 	LocalVariableTable_attribute *localVariableTable_attribute = (LocalVariableTable_attribute*)malloc(sizeof(LocalVariableTable_attribute));
@@ -629,13 +604,11 @@ struct local_variable_type_table_row {
 	u16 signature_index;
 	u16 index;
 };
-typedef struct local_variable_type_table_row local_variable_type_table_row;
 
 struct LocalVariableTypeTable_attribute {
 	u16 local_variable_type_table_length;
 	local_variable_type_table_row *local_variable_type_table;
 };
-typedef struct LocalVariableTypeTable_attribute LocalVariableTypeTable_attribute;
 
 LocalVariableTypeTable_attribute *createLocalVariableTypeTableAttribute() {
 	LocalVariableTypeTable_attribute *localVariableTypeTable_attribute = (LocalVariableTypeTable_attribute*)malloc(sizeof(LocalVariableTypeTable_attribute));
@@ -656,7 +629,6 @@ Deprecated_attribute {
 */
 struct Deprecated_attribute {
 };
-typedef struct Deprecated_attribute Deprecated_attribute;
 
 /*
 annotation {
@@ -740,7 +712,6 @@ struct RuntimeVisibleAnnotations_attribute {
 	u16 num_annotations;
 	annotation *annotations; //[num_annotations];
 };
-typedef struct RuntimeVisibleAnnotations_attribute RuntimeVisibleAnnotations_attribute;
 
 /*
 RuntimeInvisibleAnnotations_attribute {
@@ -754,7 +725,6 @@ struct RuntimeInvisibleAnnotations_attribute {
 	u16 num_annotations;
 	annotation *annotations; //[num_annotations];
 };
-typedef struct RuntimeInvisibleAnnotations_attribute RuntimeInvisibleAnnotations_attribute;
 
 struct parameter_annotation {
 	u16 num_annotations;
@@ -775,7 +745,6 @@ struct RuntimeVisibleParameterAnnotations_attribute {
 	u8 num_parameters;
 	parameter_annotation *parameter_annotations; //[num_parameters];
 };
-typedef struct RuntimeVisibleParameterAnnotations_attribute RuntimeVisibleParameterAnnotations_attribute;
 
 /*
 RuntimeInvisibleParameterAnnotations_attribute {
@@ -791,7 +760,6 @@ struct RuntimeInvisibleParameterAnnotations_attribute {
 	u8 num_parameters;
 	parameter_annotation *parameter_annotations; //[num_parameters];
 };
-typedef struct RuntimeInvisibleParameterAnnotations_attribute RuntimeInvisibleParameterAnnotations_attribute;
 
 /*
 AnnotationDefault_attribute {
@@ -803,7 +771,6 @@ AnnotationDefault_attribute {
 struct AnnotationDefault_attribute {
 	element_value default_value;
 };
-typedef struct AnnotationDefault_attribute AnnotationDefault_attribute;
 
 struct bootstrap_method {
 	u16 bootstrap_method_ref;
@@ -826,7 +793,6 @@ struct BootstrapMethods_attribute {
 	u16 num_bootstrap_methods;
 	bootstrap_method *bootstrap_methods;
 };
-typedef struct BootstrapMethods_attribute BootstrapMethods_attribute;
 
 /*
 attribute_info {

@@ -66,7 +66,6 @@ CONSTANT_Class_info {
 struct Constant_Class {
 	u16 name_index;
 };
-typedef struct Constant_Class Constant_Class;
 
 /*
 CONSTANT_Fieldref_info {
@@ -91,19 +90,16 @@ struct Constant_Fieldref {
 	u16 class_index;
 	u16 name_and_type_index;
 };
-typedef struct Constant_Fieldref Constant_Fieldref;
 
 struct Constant_Methodref {
 	u16 class_index;
 	u16 name_and_type_index;
 };
-typedef struct Constant_Methodref Constant_Methodref;
 
 struct Constant_InterfaceMethodref {
 	u16 class_index;
 	u16 name_and_type_index;
 };
-typedef struct Constant_InterfaceMethodref Constant_InterfaceMethodref;
 
 /*
 CONSTANT_String_info {
@@ -114,7 +110,6 @@ CONSTANT_String_info {
 struct Constant_String {
 	u16 string_index;
 };
-typedef struct Constant_String Constant_String;
 
 /*
 CONSTANT_Integer_info {
@@ -130,12 +125,10 @@ CONSTANT_Float_info {
 struct Constant_Integer {
 	u32 bytes;
 };
-typedef struct Constant_Integer Constant_Integer;
 
 struct Constant_Float {
 	u32 bytes;
 };
-typedef struct Constant_Float Constant_Float;
 
 /*
 CONSTANT_Long_info {
@@ -154,13 +147,11 @@ struct Constant_Long {
 	u32 high_bytes;
 	u32 low_bytes;
 };
-typedef struct Constant_Long Constant_Long;
 
 struct Constant_Double {
 	u32 high_bytes;
 	u32 low_bytes;
 };
-typedef struct Constant_Double Constant_Double;
 
 /*
 CONSTANT_NameAndType_info {
@@ -173,7 +164,6 @@ struct Constant_NameAndType {
 	u16 name_index;
 	u16 descriptor_index;
 };
-typedef struct Constant_NameAndType Constant_NameAndType;
 
 /*
 CONSTANT_Utf8_info {
@@ -186,7 +176,6 @@ struct Constant_Utf8 {
 	u16 length;
 	byte *bytes;
 };
-typedef struct Constant_Utf8 Constant_Utf8;
 
 /*
 CONSTANT_MethodHandle_info {
@@ -199,7 +188,6 @@ struct Constant_MethodHandle {
 	u8 reference_kind;
 	u16 reference_index; 
 };
-typedef struct Constant_MethodHandle Constant_MethodHandle;
 
 /*
 CONSTANT_MethodType_info {
@@ -210,7 +198,6 @@ CONSTANT_MethodType_info {
 struct Constant_MethodType {
 	u16 descriptor_index;
 };
-typedef struct Constant_MethodType Constant_MethodType;
 
 /*
 CONSTANT_InvokeDynamic_info {
@@ -223,7 +210,6 @@ struct Constant_InvokeDynamic {
 	u16 bootstrap_method_attr_index;
 	u16 name_and_type_index;
 };
-typedef struct Constant_InvokeDynamic Constant_InvokeDynamic;
 
 /*
 cp_info {
@@ -252,7 +238,6 @@ struct ConstantPoolInfo {
 	};
 	
 };
-typedef struct ConstantPoolInfo ConstantPoolInfo;
 
 ConstantPoolInfo *createConstantPoolInfo() {
 	ConstantPoolInfo *constantPoolInfo = (ConstantPoolInfo*)malloc(sizeof(ConstantPoolInfo));

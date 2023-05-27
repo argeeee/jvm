@@ -50,7 +50,6 @@ struct JavaClass {
 	u16 attributes_count;
 	AttributeInfo **attributes;
 };
-typedef struct JavaClass JavaClass;
 
 JavaClass *createJavaClass() {
 	JavaClass *javaClass = (JavaClass*)malloc(sizeof(JavaClass));

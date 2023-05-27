@@ -13,8 +13,11 @@ struct DumpClassParams {
 };
 
 class DumpClass : public UseCase<void, DumpClassParams> {
+
  public:
+
 	DumpClass() { }
+
 	virtual ~DumpClass() { }
 
 	virtual void operator()(const DumpClassParams& params) {

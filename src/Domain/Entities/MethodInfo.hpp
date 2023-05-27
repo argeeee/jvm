@@ -34,7 +34,6 @@ struct MethodInfo {
 	u16 attributes_count;
 	AttributeInfo **attributes;
 };
-typedef struct MethodInfo MethodInfo;
 
 MethodInfo *createMethodInfo() {
 	MethodInfo *methodInfo = (MethodInfo*)malloc(sizeof(MethodInfo));
